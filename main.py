@@ -60,7 +60,7 @@ def predict(data):
     header = {'Content-type': 'application/json' } 
     data = data
 
-    r = requests.post( url, data=data, headers=header )
+    r = requests.post( url, data=data, headers=header ,verify = False)
     print( 'Status Code {}'.format( r.status_code ) )
 
 
