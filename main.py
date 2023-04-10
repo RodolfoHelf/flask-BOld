@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import requests
+import os
 
 from flask import Flask,request,Response
 
@@ -29,8 +30,8 @@ def send_message(chat_id,text):
 
 def load_dataset(store_id):
     # loading test dataset
-    df10 = pd.read_csv( '../data/test.csv' )
-    df_store_raw = pd.read_csv( '../data/store.csv', low_memory=False )
+    df10 = pd.read_csv( 'test.csv' )
+    df_store_raw = pd.read_csv( 'store.csv', low_memory=False )
 
     # merge test dataset + store
     df_test = pd.merge( df10, df_store_raw, how='left', on='Store' )
@@ -120,4 +121,5 @@ def index():
         return "<h1> Rossmann Telegram Bot </h1>"
 
 if(__name__ == '__main__'):
-    app.run(host='0.0.0.0',port = 5000)
+    port = os.environ.get('PORT',5000)
+    app.run(host='0.0.0.0',port = port)
